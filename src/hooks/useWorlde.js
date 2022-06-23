@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { answerList } from '../wordleWords'
+import { answerList } from '../components/AnswerList'
 
 const useWordle = (solution) => {
     const [turn, setTurn] = useState(0)
@@ -14,7 +14,8 @@ const useWordle = (solution) => {
     // this will format user guess into an array of 'letter' objects
     // EXAMPLE [{key: 'a', color: 'green'}]
     const formatGuess = () => {
-    let solutionArray = [...answerList]
+
+    let solutionArray = [...solution]
     let formattedGuess = [...currentGuess].map((l) => {
         return {key: l, color: 'grey'}
     })
@@ -58,7 +59,7 @@ const useWordle = (solution) => {
         setUsedKeys(prevUsedKeys => {
             formattedGuess.forEach(l => {
                 const currentColor = prevUsedKeys[l.key]
-
+                
                 if (l.color === 'green') {
                     prevUsedKeys[l.key] = 'green'
                     return
@@ -79,6 +80,9 @@ const useWordle = (solution) => {
     }
 
     const handleKeyup = ({ key }) => {
+        if (isCorrect) {
+            return
+        }
         if (key === 'Enter') {
             //submits but only if turns havent run out
             if (turn > 5) {
@@ -95,6 +99,7 @@ const useWordle = (solution) => {
                 console.log('need 5 letters')
                 return
             }
+            
             //finally - this will do the color checking thing
 
             const formatted = formatGuess()

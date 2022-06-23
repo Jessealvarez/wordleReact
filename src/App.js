@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react"
 import './App.css'
-import { answerList } from "./wordleWords.js"
+import { answerList } from "./wordleWords"
 import Wordle from './components/Wordle'
 
 
@@ -8,12 +8,12 @@ import Wordle from './components/Wordle'
 function App() {
 
   //trying to generate random word from the list
-  const [solution, setSolution] = useState(null)
+  const [solution, setSolution] = useState("karma")
 
   useEffect(() => {
     const randomSolution = answerList[Math.floor(Math.random()*10)]
     //very confused... cannot make the randomizer too big without causing an error so i multiply by 10
-    setSolution(randomSolution)
+    // setSolution(randomSolution)
   }, [setSolution])
   
   
@@ -27,7 +27,7 @@ function App() {
         <div>    
            {solution} 
          </div>
-        <Wordle />
+        <Wordle solution={solution}/>
         <WordleKeyboard />
        </div>
       </header>
