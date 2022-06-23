@@ -1,72 +1,51 @@
-import {useState} from "react";
-import './App.css';
+import {useEffect, useState} from "react"
+import './App.css'
+import { answerList } from "./wordleWords.js"
+import Wordle from './components/Wordle'
 
-const defaultGuessList = [
-  ["R", "E", "A", "C", "T"],
-  ["", "", "", "", ""],
-  ["", "", "", "", ""],
-  ["", "", "", "", ""],
-  ["", "", "", "", ""],
-  ["", "", "", "", ""],
-]
 
 
 function App() {
-  const [wordleGuessList, setWordleGuessList] = useState([...defaultGuessList])
-  const letterGuess = useState("")
-  return (
+
+  //trying to generate random word from the list
+  const [solution, setSolution] = useState(null)
+
+  useEffect(() => {
+    const randomSolution = answerList[Math.floor(Math.random()*10)]
+    //very confused... cannot make the randomizer too big without causing an error so i multiply by 10
+    setSolution(randomSolution)
+  }, [setSolution])
+  
+  
+
+  
+ return (
     <div className="App">
       <header className="App-header">
        <div>
         <WordleHeader />
-        <WordleGrid 
-        wordleGuessList={wordleGuessList}
-        />
+        <div>    
+           {solution} 
+         </div>
+        <Wordle />
         <WordleKeyboard />
        </div>
       </header>
+
     </div>
   );
 }
 
+
 const WordleHeader = () => {
   return (
+
     <h1 className = "wordle-header">
-      Fake Wordle
+      Wordle Clone
     </h1>
   )
 }
- const WordleGrid = (props) => {
-  return (
-    <div className="wordle-grid">
-      {props.wordleGuessList.map((wordleGuess)=>{
-        return (
-      <WordleGridRow wordleGuess={wordleGuess}/>
-    )
-    })}
-    </div>
-  )
-}
 
-const WordleGridRow = (props) => {
-  return (
-    <div className="wordle-grid-row">
-      {props.wordleGuess.map((wordleLetter)=>{
-        return (
-          <WordleGridLetter wordleLetter={wordleLetter} isCorrect={wordleLetter === "A" || wordleLetter === "E"}/>
-        )
-      })}
-    </div>
-  )
-}
-
- const WordleGridLetter = (props) => {
-  return (
-    <div className={`wordle-grid-letter wordle-grid-letter-${props.isCorrect}`}>
-      {props.wordleLetter}
-    </div>
-  )
-}
 
 const WordleKeyboard = () => {
   const keys1 = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"]
@@ -95,8 +74,5 @@ const WordleKeyboard = () => {
   );
 }
 
-// * Create two new components <KeyboardRow> and <KeyboardLetter>
-// * Map through keyList to display 3 <KeyboardRow>'s and then map through <KeyboardRow> to display the sub-array of <KeyboardLetter>'s. Hint: these two components should function very similarly to <WordleGridRow> and <WordleGridLetter> respectively.
-// * Style you Wordle Clone grid and keyboard to appear like the real Wordle grid and keyboard. 
 
 export default App;
