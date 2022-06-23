@@ -115,10 +115,39 @@
 }
 
 
-.keyboard{
-  width: 700px;
-  height: 300px;
-  margin-top: 60px;
+.keypad{
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+.keypad > div {
+  margin: 5px;
+  min-width: 40px;
+  max-width: 70px;
+  height: 50px;
+  background: blue;
+  display: inline-block;
+  border-radius: 6px;
+  line-height: 50px;
+}
+
+.keypad > div.green {
+  background: #5ac85a;
+  color: #fff;
+  transition: all 0.3s ease-in;
+}
+
+.keypad > div.yellow{
+  background: yellow;
+  color: #fff;
+  transition: all 0.3s ease-in;
+
+}
+.keypad > div.grey {
+  background: grey;
+  color: #fff;
+  transition: all 0.3s ease-in;
+
 }
 
 .line1{
